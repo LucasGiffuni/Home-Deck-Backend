@@ -21,6 +21,8 @@ import com.google.common.collect.Maps;
 import com.home.app.model.response.DialogFlowIntentResponse;
 import com.home.app.model.response.DialogFlowIntentResponseData;
 
+import lombok.NoArgsConstructor;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +31,9 @@ import java.util.Map;
 public class DialogFlow {
 
   public static DialogFlowIntentResponse detectIntentSentimentAnalysis(
-      String projectId, String text, String sessionId, String languageCode)
+      String text, String projectId, String sessionId, String languageCode)
       throws IOException, ApiException {
+
     QueryResult queryResult;
     DialogFlowIntentResponse df = new DialogFlowIntentResponse();
 
@@ -39,17 +42,11 @@ public class DialogFlow {
     try (SessionsClient sessionsClient = SessionsClient.create()) {
       // Set the session name using the sessionId (UUID) and projectID (my-project-id)
       SessionName session = SessionName.of(projectId, sessionId);
-      System.out.println("Session Path: " + session.toString());
-
-      // Detect intents for each text input
-
       // Set the text (hello) and language code (en-US) for the query
       TextInput.Builder textInput = TextInput.newBuilder().setText(text).setLanguageCode(languageCode);
-
       // Build the query with the TextInput
       QueryInput queryInput = QueryInput.newBuilder().setText(textInput).build();
 
-      //
       SentimentAnalysisRequestConfig sentimentAnalysisRequestConfig = SentimentAnalysisRequestConfig.newBuilder()
           .setAnalyzeQueryTextSentiment(true).build();
 
@@ -67,22 +64,25 @@ public class DialogFlow {
 
       // Display the query result
       queryResult = response.getQueryResult();
-
-      System.out.println("====================");
-      System.out.format("Query Text: '%s'\n", queryResult.getQueryText());
-      System.out.format(
-          "Detected Intent: %s (confidence: %f)\n",
-          queryResult.getIntent().getDisplayName(), queryResult.getIntentDetectionConfidence());
-
-      System.out.format(
-          "Fulfillment Text: '%s'\n",
-          queryResult.getFulfillmentMessagesCount() > 0
-              ? queryResult.getFulfillmentMessages(0).getText()
-              : "Triggered Default Fallback Intent");
-      System.out.format(
-          "Sentiment Score: '%s'\n",
-          queryResult.getSentimentAnalysisResult().getQueryTextSentiment().getScore());
+      /*
+       * System.out.println("====================");
+       * System.out.format("Query Text: '%s'\n", queryResult.getQueryText());
+       * System.out.format(
+       * "Detected Intent: %s (confidence: %f)\n",
+       * queryResult.getIntent().getDisplayName(),
+       * queryResult.getIntentDetectionConfidence());
+       * 
+       * System.out.format(
+       * "Fulfillment Text: '%s'\n",
+       * queryResult.getFulfillmentMessagesCount() > 0
+       * ? queryResult.getFulfillmentMessages(0).getText()
+       * : "Triggered Default Fallback Intent");
+       * System.out.format(
+       * "Sentiment Score: '%s'\n",
+       * queryResult.getSentimentAnalysisResult().getQueryTextSentiment().getScore());
+       */
       queryResults.put(text, queryResult);
+
       df.setDiaglogFlowResponse(text, queryResult.getIntent().getDisplayName(),
           queryResult.getFulfillmentMessages(0).getText().getText(0),
           queryResult.getSentimentAnalysisResult().getQueryTextSentiment().getScore());
