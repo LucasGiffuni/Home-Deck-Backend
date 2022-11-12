@@ -14,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -46,7 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/public/**").permitAll()
         .antMatchers("/admin/**").hasRole("ADMIN")
         .antMatchers("/**").hasRole("USER")
-
         .anyRequest().authenticated()
         .and().cors()
         .and()

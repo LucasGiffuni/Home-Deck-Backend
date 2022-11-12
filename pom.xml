@@ -19,6 +19,9 @@
 	</properties>
 	<dependencies>
 
+		
+
+
 		<dependency>
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-functions-parent</artifactId>
@@ -95,8 +98,21 @@
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 		</dependency>
+
+
+
+
+		<!-- Spotify dependencies -->
+		<dependency>
+			<groupId>se.michaelthelin.spotify</groupId>
+			<artifactId>spotify-web-api-java</artifactId>
+			<version>7.1.0</version>
+		  </dependency>
 	</dependencies>
 
+
+
+	
 
 	<build>
 		<plugins>
@@ -128,6 +144,12 @@
 		</plugins>
 	</build>
 	<repositories>
+		<!-- Spotify repositories -->
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+
 		<repository>
 			<id>spring-releases</id>
 			<name>Spring Releases</name>

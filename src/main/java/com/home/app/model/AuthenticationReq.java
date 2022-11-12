@@ -2,12 +2,15 @@ package com.home.app.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AuthenticationReq implements Serializable {
 
   private static final long serialVersionUID = 1L;
-
+  @JsonProperty("usuario")
   private String usuario;
-
+  
+  @JsonProperty("clave")
   private String clave;
 
   public AuthenticationReq(String usuario, String clave) {
