@@ -30,7 +30,7 @@ public class SpotifyConfigurationController {
     public String REFRESH_TOKEN;
     public String ACCESS_TOKEN;
 
-    private SpotifyServiceImpl sp = new SpotifyServiceImpl();
+    private SpotifyServiceImpl sp;
 
     @GetMapping("/spotify/getMe")
     public ResponseEntity<?> getMe() {
@@ -70,9 +70,20 @@ public class SpotifyConfigurationController {
         return ResponseEntity.ok(mensaje);
     }
 
+    @GetMapping("/spotify/getCodeFromURL")
+    public ResponseEntity<?> getCodeFromURL(@RequestParam String clientID, @RequestParam String clientSecret) {
+
+        SpotifyServiceImpl local = new SpotifyServiceImpl(clientID, clientSecret);
+        this.setSp(local);
+
+        Map<String, String> mensaje = new HashMap<>();
+        mensaje.put("contenido", this.getSp().ObtainCode().toString());
+        return ResponseEntity.ok(mensaje);
+    }
+
     @GetMapping("/spotify/getRefreshToken")
     public ResponseEntity<?> getRefreshToken() {
-        String[] response = sp.ObtainRefreshToken(CODE);
+        String[] response =  this.getSp().ObtainRefreshToken(CODE);
 
         ACCESS_TOKEN = response[0];
         REFRESH_TOKEN = response[1];
@@ -83,15 +94,7 @@ public class SpotifyConfigurationController {
     @GetMapping("/spotify/refreshToken")
     public ResponseEntity<?> refreshToken() {
 
-        return sp.RefreshToken(REFRESH_TOKEN, CODE);
-    }
-
-    @GetMapping("/spotify/getCodeFromURL")
-    public ResponseEntity<?> getCodeFromURL() {
-
-        Map<String, String> mensaje = new HashMap<>();
-        mensaje.put("contenido", sp.ObtainCode().toString());
-        return ResponseEntity.ok(mensaje);
+        return  this.getSp().RefreshToken(REFRESH_TOKEN, CODE);
     }
 
     @GetMapping("/spotify/getTokenWithCode")
@@ -101,5 +104,16 @@ public class SpotifyConfigurationController {
         mensaje.put("contenido", sp.ObtainTokenWithCode().toString());
         return ResponseEntity.ok(mensaje);
     }
+
+    public SpotifyServiceImpl getSp() {
+        return sp;
+    }
+
+    public void setSp(SpotifyServiceImpl sp) {
+        this.sp = sp;
+    }
+
+
+    
 
 }

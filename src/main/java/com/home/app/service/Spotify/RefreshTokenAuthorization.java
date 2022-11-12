@@ -19,9 +19,9 @@ public class RefreshTokenAuthorization {
 
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 
-    private final String clientId = "d61046f675cf4c26b2fa9b24b8a839ca";
-    private final String clientSecret = "c87cfb81a09941cdb8fd13c0cd1b0157";
-    private final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/public/hello");
+    private  String clientId = "";
+    private  String clientSecret = "";
+    private  URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/public/hello");
     private String refreshToken;
 
     private String code;
@@ -30,8 +30,10 @@ public class RefreshTokenAuthorization {
     private AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest;
     private SpotifyApi spotifyApiRefresh;
 
-    public RefreshTokenAuthorization(String code) {
+    public RefreshTokenAuthorization(String clientID, String clientSecret,String code) {
         this.code = code;
+        this.clientId = clientID;
+        this.clientSecret = clientSecret;
 
         spotifyApi = new SpotifyApi.Builder().setClientId(clientId).setClientSecret(clientSecret)
                 .setRedirectUri(redirectUri).build();
@@ -39,11 +41,13 @@ public class RefreshTokenAuthorization {
 
     }
 
-    public RefreshTokenAuthorization(String refresh, String code) {
+    public RefreshTokenAuthorization(String clientID, String clientSecret,String refresh, String code) {
         logger.info("Refresh: " + refresh);
         this.refreshToken = refresh;
         this.code = code;
-
+        this.clientId = clientID;
+        this.clientSecret = clientSecret;
+        
         spotifyApiRefresh = new SpotifyApi.Builder()
                 .setClientId(clientId)
                 .setClientSecret(clientSecret)

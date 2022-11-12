@@ -46,49 +46,54 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class SpotifyServiceImpl  {
-      
+public class SpotifyServiceImpl {
+
     @Autowired
     RestTemplate restTemplate = new RestTemplate();
 
-    private final String clientId = "d61046f675cf4c26b2fa9b24b8a839ca";
-    private final String clientSecret = "c87cfb81a09941cdb8fd13c0cd1b0157";
-    private final URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/public/hello");
-    private static final String refreshToken = "b0KuPuLw77Z0hQhCsK-GTHoEx_kethtn357V7iqwEpCTIsLgqbBC_vQBTGC6M5rINl0FrqHK-D3cbOsMOlfyVKuQPvpyGcLcxAoLOTpYXc28nVwB7iBq2oKj9G9lHkFOUKn";
+    private String clientId;
+    private String clientSecret;
+    private URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/public/hello");
+    private String refreshToken = "b0KuPuLw77Z0hQhCsK-GTHoEx_kethtn357V7iqwEpCTIsLgqbBC_vQBTGC6M5rINl0FrqHK-D3cbOsMOlfyVKuQPvpyGcLcxAoLOTpYXc28nVwB7iBq2oKj9G9lHkFOUKn";
 
     private String code = "";
     private String accessToken = "";
     private String state = "";
+    // ############## Spotify things ##############
+    private SpotifyApi spotifyApi;
+
+    private ClientCredentialsRequest clientCredentialsRequest;
+
+    private AuthorizationCodeUriRequest authorizationCodeUriRequest;
+
+    private AuthorizationCodeRequest authorizationCodeRequest;
 
     private final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 
-    // ############## Spotify things ##############
+    public SpotifyServiceImpl(String clientID, String clientSecret) {
+        this.clientId = clientID;
+        this.clientSecret = clientSecret;
 
-    private final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(clientId)
-            .setClientSecret(clientSecret)
-            .setRedirectUri(redirectUri)
-            .setRefreshToken(refreshToken)
-            .build();
+        spotifyApi = new SpotifyApi.Builder()
+                .setClientId(clientID)
+                .setClientSecret(clientSecret)
+                .setRedirectUri(redirectUri)
+                .setRefreshToken(refreshToken)
+                .build();
+        clientCredentialsRequest = spotifyApi.clientCredentials().build();
 
+        authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()
+                .state(state)
+                .scope("user-modify-playback-state,user-read-email")
+                .show_dialog(true)
+                .build();
 
-    private final ClientCredentialsRequest clientCredentialsRequest = spotifyApi.clientCredentials().build();
+        authorizationCodeRequest = spotifyApi.authorizationCode(code)
+                .build();
 
-    private final AuthorizationCodeUriRequest authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()
-            .state(state)
-            .scope("user-modify-playback-state,user-read-email")
-            .show_dialog(true)
-            .build();
-
-
-
-    private final AuthorizationCodeRequest authorizationCodeRequest = spotifyApi.authorizationCode(code)
-            .build();
-
- 
-
- 
-   
+        logger.info("ID: " + clientID);
+        logger.info("Secret: " + clientSecret);
+    }
 
     // ####### SPOTIFY TOKEN MANAGER #######
     public String ObtainToken() {
@@ -131,18 +136,17 @@ public class SpotifyServiceImpl  {
 
     public String[] ObtainRefreshToken(String code) {
 
-        RefreshTokenAuthorization rftA = new RefreshTokenAuthorization(code);
+        RefreshTokenAuthorization rftA = new RefreshTokenAuthorization(clientId, clientSecret, code);
 
         String[] response = rftA.authorizationCode_Sync();
-
 
         return response;
 
     }
 
-    public ResponseEntity<?> RefreshToken(String refreshToken,String code) {
+    public ResponseEntity<?> RefreshToken(String refreshToken, String code) {
 
-        RefreshTokenAuthorization rftA = new RefreshTokenAuthorization(refreshToken,code);
+        RefreshTokenAuthorization rftA = new RefreshTokenAuthorization(clientId, clientSecret, refreshToken, code);
 
         rftA.authorizationCodeRefresh_Sync();
 
@@ -151,8 +155,8 @@ public class SpotifyServiceImpl  {
     }
 
     public ResponseEntity<?> ObtainCode() {
+        TokenAuthorization tA = new TokenAuthorization(this.clientId, this.clientSecret);
 
-        TokenAuthorization tA = new TokenAuthorization();
         tA.authorizationCodeUri_Sync();
 
         return new ResponseEntity<String>(tA.authorizationCodeUri_Sync(), HttpStatus.OK);
