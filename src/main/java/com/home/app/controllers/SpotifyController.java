@@ -21,7 +21,7 @@ import com.home.app.service.impl.SpotifyServiceImpl;
 
 @RestController
 @CrossOrigin
-public class SpotifyConfigurationController {
+public class SpotifyController {
 
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 

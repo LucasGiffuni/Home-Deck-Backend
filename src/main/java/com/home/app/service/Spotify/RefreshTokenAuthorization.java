@@ -9,8 +9,13 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 import org.apache.hc.core5.http.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.home.app.AppApplication;
+
+import io.jsonwebtoken.ExpiredJwtException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,9 +24,9 @@ public class RefreshTokenAuthorization {
 
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 
-    private  String clientId = "";
-    private  String clientSecret = "";
-    private  URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/public/hello");
+    private String clientId = "";
+    private String clientSecret = "";
+    private URI redirectUri = SpotifyHttpManager.makeUri("http://localhost:8080/public/hello");
     private String refreshToken;
 
     private String code;
@@ -30,7 +35,7 @@ public class RefreshTokenAuthorization {
     private AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest;
     private SpotifyApi spotifyApiRefresh;
 
-    public RefreshTokenAuthorization(String clientID, String clientSecret,String code) {
+    public RefreshTokenAuthorization(String clientID, String clientSecret, String code) {
         this.code = code;
         this.clientId = clientID;
         this.clientSecret = clientSecret;
@@ -41,13 +46,13 @@ public class RefreshTokenAuthorization {
 
     }
 
-    public RefreshTokenAuthorization(String clientID, String clientSecret,String refresh, String code) {
+    public RefreshTokenAuthorization(String clientID, String clientSecret, String refresh, String code) {
         logger.info("Refresh: " + refresh);
         this.refreshToken = refresh;
         this.code = code;
         this.clientId = clientID;
         this.clientSecret = clientSecret;
-        
+
         spotifyApiRefresh = new SpotifyApi.Builder()
                 .setClientId(clientId)
                 .setClientSecret(clientSecret)
@@ -75,6 +80,10 @@ public class RefreshTokenAuthorization {
             return response;
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
+        } catch (ExpiredJwtException expired) {
+            logger.info("Security exception: " + expired.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Token Expired");
         }
         return null;
     }
@@ -89,6 +98,10 @@ public class RefreshTokenAuthorization {
             System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
             System.out.println("Error: " + e.getMessage());
+        } catch (ExpiredJwtException expired) {
+            logger.info("Security exception: " + expired.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Token Expired");
         }
     }
 

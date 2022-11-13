@@ -143,3 +143,30 @@ Utilizando el **Access-Token** obtenido previamente se devuelve el **Refresh-Tok
 
 3. **/spotify/refreshToken**
 Se actualiza la duración del **Refresh-Token**
+
+
+
+
+
+---
+### Docker
+El microservicio está dockerizado con el fin de proveer facilidad de uso y mantenimiento con la integración de los distintos servicios que utilizan este mismo.
+
+#### DockerFile
+```dockerfile
+FROM openjdk:17-jdk-alpine
+
+ARG JAR_FILE=target/*.jar
+
+COPY ${JAR_FILE} Home-Deck-0.0.1.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","Home-Deck-0.0.1.jar"]
+```
+
+#### Comandos a usar
+1. **./mvnw package** para buildear la imagen.
+2. **docker build -t home-deck-container .** para crear el container.
+3. **docker run -dp 8080:8080 home-deck-container** para lanzar el container.
+

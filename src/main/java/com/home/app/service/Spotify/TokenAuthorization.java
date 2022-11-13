@@ -5,11 +5,6 @@ import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 
 import java.net.URI;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionException;
-
-import ch.qos.logback.core.subst.Token;
 
 public class TokenAuthorization {
     private String clientId;
@@ -25,9 +20,9 @@ public class TokenAuthorization {
         this.clientSecret = clientSecret;
 
         spotifyApi = new SpotifyApi.Builder()
-                .setClientId(clientId)
-                .setClientSecret(clientSecret)
-                .setRedirectUri(redirectUri)
+                .setClientId(this.clientId)
+                .setClientSecret(this.clientSecret)
+                .setRedirectUri(this.redirectUri)
                 .build();
 
         authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()

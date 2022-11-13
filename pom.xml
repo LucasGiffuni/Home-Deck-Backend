@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.home</groupId>
-	<artifactId>app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>app</name>
+	<artifactId>Home-Deck</artifactId>
+	<version>0.0.1</version>
+	<name>Home-Deck</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -18,8 +18,6 @@
 		<spring-native.version>0.12.1</spring-native.version>
 	</properties>
 	<dependencies>
-
-		
 
 
 		<dependency>
@@ -87,7 +85,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
@@ -100,19 +98,14 @@
 		</dependency>
 
 
-
-
 		<!-- Spotify dependencies -->
 		<dependency>
 			<groupId>se.michaelthelin.spotify</groupId>
 			<artifactId>spotify-web-api-java</artifactId>
 			<version>7.1.0</version>
-		  </dependency>
+		</dependency>
 	</dependencies>
 
-
-
-	
 
 	<build>
 		<plugins>

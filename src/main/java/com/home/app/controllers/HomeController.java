@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.google.api.gax.rpc.ApiException;
 import com.home.app.AppApplication;
@@ -54,8 +59,6 @@ public class HomeController {
     static DialogFlowIntentResponse response;
 
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
-
-
 
     @RequestMapping("/resume")
     public DefaultResponse nose() {
@@ -116,5 +119,7 @@ public class HomeController {
 
         return ResponseEntity.ok(tokenInfo);
     }
+
+  
 
 }
