@@ -25,10 +25,10 @@ public class SpotifyController {
 
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 
-    public String CODE;
-    public String STATE;
-    public String REFRESH_TOKEN;
-    public String ACCESS_TOKEN;
+    private String CODE;
+    private String STATE;
+    private String REFRESH_TOKEN;
+    private String ACCESS_TOKEN;
 
     private SpotifyServiceImpl sp;
 
@@ -46,6 +46,38 @@ public class SpotifyController {
         SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
 
         return spotifyActions.pausePlayer();
+    }
+    @PostMapping(value = "/spotify/resumePlayer")
+    public ResponseEntity<?> resumePlayer() {
+
+        SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
+
+        return spotifyActions.resumePlayer();
+    }
+
+    @GetMapping(value = "/spotify/getPlayerInformation")
+    public ResponseEntity<?> getPlayerInformation() {
+
+        SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
+
+        return spotifyActions.getPlayerInformation();
+    }
+
+    @PostMapping(value = "/spotify/setPlayerVolume")
+    public ResponseEntity<?> setPlayerVolume(@RequestParam int volume) {
+
+        SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
+
+        return spotifyActions.setPlayerVolume(volume);
+    }
+
+
+    @GetMapping(value = "/spotify/getUserPlaylists")
+    public ResponseEntity<?> getUserAlbums() {
+
+        SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
+
+        return spotifyActions.getUserPlaylists();
     }
 
     // ##### SPOTIFY TOKEN MANAGER #####
@@ -83,7 +115,7 @@ public class SpotifyController {
 
     @GetMapping("/spotify/getRefreshToken")
     public ResponseEntity<?> getRefreshToken() {
-        String[] response =  this.getSp().ObtainRefreshToken(CODE);
+        String[] response = this.getSp().ObtainRefreshToken(CODE);
 
         ACCESS_TOKEN = response[0];
         REFRESH_TOKEN = response[1];
@@ -94,7 +126,7 @@ public class SpotifyController {
     @GetMapping("/spotify/refreshToken")
     public ResponseEntity<?> refreshToken() {
 
-        return  this.getSp().RefreshToken(REFRESH_TOKEN, CODE);
+        return this.getSp().RefreshToken(REFRESH_TOKEN, CODE);
     }
 
     @GetMapping("/spotify/getTokenWithCode")
@@ -112,8 +144,5 @@ public class SpotifyController {
     public void setSp(SpotifyServiceImpl sp) {
         this.sp = sp;
     }
-
-
-    
 
 }
