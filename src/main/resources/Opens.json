@@ -1,0 +1,28 @@
+{
+    "opens": [
+        {
+            "id": 1,
+            "name": "Puerta Principal 1",
+            "roomId": "0",
+            "state": false
+        },
+        {
+            "id": 2,
+            "name": "Puerta Principal 2",
+            "roomId": "0",
+            "state": false
+        },
+        {
+            "id": 3,
+            "name": "Ventana Cuarto 1",
+            "roomId": "1",
+            "state": false
+        },
+        {
+            "id": 4,
+            "name": "Ventana Comedor 1",
+            "roomId": "2",
+            "state": false
+        }
+    ]
+}

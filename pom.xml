@@ -104,6 +104,21 @@
 			<artifactId>spotify-web-api-java</artifactId>
 			<version>7.1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.5.Final</version>
+		</dependency>
+
+
+		<!-- MQTT dependencies -->
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-mqtt</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+		
 	</dependencies>
 
 
@@ -151,6 +166,8 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+
+
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
