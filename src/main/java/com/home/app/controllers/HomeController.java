@@ -44,7 +44,7 @@ import com.home.app.security.JwtUtilService;
 import com.home.app.service.impl.*;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class HomeController {
     @Autowired
     private AuthenticationManager authenticationManager;

@@ -19,7 +19,7 @@ import org.springframework.messaging.MessagingException;
 
 @Configuration
 public class MqttBeans {
-
+/* 
     @Bean
     public MqttPahoClientFactory mqttClientFactory() {
         DefaultMqttPahoClientFactory factory = new DefaultMqttPahoClientFactory();
@@ -87,5 +87,5 @@ public class MqttBeans {
         messageHandler.setDefaultRetained(false);
         return messageHandler;
     }
-
+*/
 }

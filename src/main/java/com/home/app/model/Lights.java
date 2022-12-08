@@ -1,5 +1,6 @@
 package com.home.app.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -10,7 +11,7 @@ public class Lights {
     private String lightsName;
     
     @JsonProperty("lights")
-    private Light[] lights;
+    private ArrayList<Light> lights;
 
     public String getLightsName() {
         return lightsName;
@@ -20,19 +21,20 @@ public class Lights {
         this.lightsName = value;
     }
 
-    public Light[] getLights() {
+    public ArrayList<Light> getLights() {
         return lights;
     }
 
-    public void setLights(Light[] value) {
+    public void setLights(ArrayList<Light> value) {
         this.lights = value;
     }
 
     @Override
     public String toString() {
-        return "Lights [lightsName=" + lightsName + ", lights=" + Arrays.toString(lights) + "]";
+        return "Lights [lightsName=" + lightsName + ", lights=" + lights + "]";
     }
 
+   
 
     
 }

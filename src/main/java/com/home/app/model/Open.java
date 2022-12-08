@@ -7,6 +7,8 @@ public class Open {
     private long id;
     private String name;
     private String roomId;
+    private String gridSite;
+
     private boolean state;
 
     public long getId() {
@@ -39,5 +41,13 @@ public class Open {
 
     public void setState(boolean value) {
         this.state = value;
+    }
+
+    public String getGridSite() {
+        return gridSite;
+    }
+
+    public void setGridSite(String value) {
+        this.gridSite = value;
     }
 }
