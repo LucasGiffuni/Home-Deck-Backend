@@ -51,11 +51,12 @@ public class DevicesController {
             @RequestParam Integer DeviceID,
             @RequestParam String RoomID,
             @RequestParam String Name,
+            @RequestParam String Type,
             @RequestParam Boolean State) {
 
         DeviceServiceImpl deviceService = new DeviceServiceImpl();
 
-        return ResponseEntity.ok(deviceService.createLightDevice(DeviceID, RoomID, Name, State));
+        return ResponseEntity.ok(deviceService.createLightDevice(DeviceID, RoomID, Name, Type, State));
     }
 
     @GetMapping("/devices/lights/getOpenDevices")
@@ -93,11 +94,21 @@ public class DevicesController {
     @PostMapping("/public/lights/setRoomLayout")
     public ResponseEntity<?> setRoomLayout(
             @RequestParam String RoomID,
-            @RequestBody String layouts) {
+            @RequestBody String Layout) {
 
         DeviceServiceImpl deviceService = new DeviceServiceImpl();
 
-        return ResponseEntity.ok(deviceService.setRoomLayout(RoomID, layouts));
+        return ResponseEntity.ok(deviceService.setRoomLayout(RoomID, Layout));
+    }
+
+    @PostMapping("/public/lights/setRoomLayoutState")
+    public ResponseEntity<?> setRoomLayoutState(
+            @RequestParam String RoomID,
+            @RequestParam String state) {
+
+        DeviceServiceImpl deviceService = new DeviceServiceImpl();
+
+        return ResponseEntity.ok(deviceService.setRoomLayoutState(RoomID, state));
     }
 
 }

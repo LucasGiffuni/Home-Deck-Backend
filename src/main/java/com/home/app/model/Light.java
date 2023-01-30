@@ -8,6 +8,7 @@ public class Light {
 
     private long id;
     private String name;
+    private String type;
     private String gridSite;
     private String roomId;
 
@@ -22,6 +23,7 @@ public class Light {
         this.id = value;
     }
 
+
     public String getName() {
         return name;
     }
@@ -29,6 +31,15 @@ public class Light {
     public void setName(String value) {
         this.name = value;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String value) {
+        this.type = value;
+    }
+
 
     public String getRoomId() {
         return roomId;

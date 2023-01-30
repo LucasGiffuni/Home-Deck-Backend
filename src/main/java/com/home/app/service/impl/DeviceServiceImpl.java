@@ -173,7 +173,7 @@ public class DeviceServiceImpl {
         return lght;
     }
 
-    public Light createLightDevice(Integer DeviceID, String RoomID, String Name, Boolean State) {
+    public Light createLightDevice(Integer DeviceID, String RoomID, String Name, String Type, Boolean State) {
         File LightsData = new File("C:/Users/Kleis/Dev/Home-Deck/Lights.json");
 
         Lights lights = new Lights();
@@ -192,6 +192,7 @@ public class DeviceServiceImpl {
             lght.setName(Name);
             lght.setRoomId(RoomID);
             lght.setState(State);
+            lght.setType(Type);
             lights.getLights().add(lght);
 
             Map<String, Object> map = objectMapper.convertValue(lights, Map.class);
@@ -384,6 +385,8 @@ public class DeviceServiceImpl {
 
         Layout layoutAux = new Layout();
         LayoutElement layoutElement = new LayoutElement();
+
+        System.out.println(layout);
         try {
             byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Layout.json"));
             ObjectMapper objectMapper = new ObjectMapper();
@@ -397,6 +400,39 @@ public class DeviceServiceImpl {
                     objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
                     l.setLayout(layout);
+                    layoutElement = l;
+                }
+            }
+
+            Map<String, Object> map = objectMapper.convertValue(layoutAux, Map.class);
+            objectMapper.writeValue(LayoutData, map);
+            return layoutElement;
+        } catch (StreamReadException e) {
+            e.printStackTrace();
+        } catch (DatabindException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return layoutElement;
+    }
+
+    public LayoutElement setRoomLayoutState(String RoomID, String state) {
+        File LayoutData = new File("C:/Users/Kleis/Dev/Home-Deck/Layout.json");
+
+        Layout layoutAux = new Layout();
+        LayoutElement layoutElement = new LayoutElement();
+        try {
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Layout.json"));
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, String> myMap = new HashMap<String, String>();
+            myMap = objectMapper.readValue(jsonData, HashMap.class);
+            layoutAux = objectMapper.convertValue(myMap, Layout.class);
+
+            for (LayoutElement l : layoutAux.getLayouts()) {
+                if (l.getRoomId().equals(RoomID)) {
+                    l.setLayout(l.getLayout().replace("true", state).replace("false", state));
                     layoutElement = l;
                 }
             }

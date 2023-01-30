@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Open {
     private long id;
     private String name;
+    private String type;
     private String roomId;
     private String gridSite;
 
@@ -25,6 +26,14 @@ public class Open {
 
     public void setName(String value) {
         this.name = value;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String value) {
+        this.type = value;
     }
 
     public String getRoomId() {
