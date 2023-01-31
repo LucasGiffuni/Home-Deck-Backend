@@ -58,6 +58,8 @@ public class HomeController {
     @Autowired
     static DialogFlowIntentResponse response;
 
+  
+
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 
     @RequestMapping("/resume")
@@ -105,7 +107,6 @@ public class HomeController {
     @PostMapping("/public/authenticate")
     public ResponseEntity<TokenInfo> authenticate(@RequestParam String user, @RequestParam String clave) {
         logger.info("Autenticando al usuario {}", user);
-
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user,
                         clave));
@@ -119,7 +120,5 @@ public class HomeController {
 
         return ResponseEntity.ok(tokenInfo);
     }
-
-  
 
 }

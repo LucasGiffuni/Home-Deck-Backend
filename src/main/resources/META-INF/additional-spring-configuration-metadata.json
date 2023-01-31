@@ -1,0 +1,57 @@
+{"properties": [
+  {
+    "name": "JWT_SECRET_KEY",
+    "type": "java.lang.String",
+    "description": "A description for 'JWT_SECRET_KEY'"
+  },
+  {
+    "name": "encryptedPassword",
+    "type": "java.lang.String",
+    "description": "A description for 'encryptedPassword'"
+  },
+  {
+    "name": "url",
+    "type": "java.lang.String",
+    "description": "A description for 'url'"
+  },
+  {
+    "name": "spring.JWT_SECRET_KEY",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.JWT_SECRET_KEY'"
+  },
+  {
+    "name": "jwtSecurity.JWT_-sECRET_-kEY",
+    "type": "java.lang.String",
+    "description": "A description for 'jwtSecurity.JWT_-sECRET_-kEY'"
+  },
+  {
+    "name": "jwtSecurity.encrypted-password",
+    "type": "java.lang.String",
+    "description": "A description for 'jwtSecurity.encrypted-password'"
+  },
+  {
+    "name": "jwtSecurity.encryptedPassword",
+    "type": "java.lang.String",
+    "description": "A description for 'jwtSecurity.encryptedPassword'"
+  },
+  {
+    "name": "jwtSecurity.users.user1",
+    "type": "java.lang.String",
+    "description": "A description for 'jwtSecurity.users.user1'"
+  },
+  {
+    "name": "jwtSecurity.users.user2",
+    "type": "java.lang.String",
+    "description": "A description for 'jwtSecurity.users.user2'"
+  },
+  {
+    "name": "spotify.url",
+    "type": "java.lang.String",
+    "description": "A description for 'spotify.url'"
+  },
+  {
+    "name": "spotify.refreshToken",
+    "type": "java.lang.String",
+    "description": "A description for 'spotify.refreshToken'"
+  }
+]}

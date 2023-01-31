@@ -3,6 +3,8 @@ package com.home.app.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,11 @@ import java.util.stream.Collectors;
 
 @Service
 public class JwtUtilService {
-    // LLAVE_MUY_SECRETA => [Base64] => TExBVkVfTVVZX1NFQ1JFVEE=
-    private static final String JWT_SECRET_KEY = "TExBVkVfTVVZX1NFQ1JFVEE=";
+
+    private String password;
+
+    @Value("${jwtSecurity.JWT_SECRET_KEY}")
+    private String JWT_SECRET_KEY;
 
     public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * (long) 8; // 8 Horas
 

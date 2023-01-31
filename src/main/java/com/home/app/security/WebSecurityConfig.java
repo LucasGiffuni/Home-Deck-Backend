@@ -59,22 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(usuarioDetailsService);
 
-    /*
-     * auth
-     * .inMemoryAuthentication()
-     * .withUser("jcabelloc").password("{noop}" + "secreto").roles("USER")
-     * .and()
-     * .withUser("mlopez").password("{noop}" + "secreto").roles("ADMIN");
-     */
   }
 
-  /*
-   * (1) Spring Security’s HTTP Basic Authentication support in is enabled by
-   * default. However, as soon as any servlet
-   * based configuration is provided, HTTP Basic must be explicitly provided.
-   * (2) If our stateless API uses token-based authentication, such as JWT, we
-   * don't need CSRF protection
-   *
-   *
-   */
+ 
 }
