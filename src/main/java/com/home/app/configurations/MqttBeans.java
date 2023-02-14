@@ -40,7 +40,7 @@ import com.home.app.model.Lights;
 
 @Configuration
 public class MqttBeans {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
     private File LightsData = new File("C:/Users/Kleis/Dev/Home-Deck/Lights.json");
 
@@ -91,38 +91,10 @@ public class MqttBeans {
                 }
                 System.out.println(message.getHeaders());
                 System.out.println(message.getPayload());
-                String clientID = message.getPayload().toString();
 
-                if (topic.equals("device/register")) {
-                    logger.info("REGISTRANDO CLIENTE " + clientID);
-                    LightsData = new File("C:/Users/Kleis/Dev/Home-Deck/Lights.json");
-
-                    Lights lights = new Lights();
-                    Light lght = new Light();
-
-                    try {
-                        byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Lights.json"));
-                        ObjectMapper objectMapper = new ObjectMapper();
-                        Map<String, String> myMap = new HashMap<String, String>();
-                        myMap = objectMapper.readValue(jsonData, HashMap.class);
-                        lights = objectMapper.convertValue(myMap, Lights.class);
-                        lght.setID(0);
-                        lght.setName(clientID);
-                        lght.setRoomId("0");
-                        lght.setState(false);
-                        lght.setType("Lamp");
-                        lights.getLights().add(lght);
-                        Map<String, Object> map = objectMapper.convertValue(lights, Map.class);
-                        objectMapper.writeValue(LightsData, map);
-                    } catch (StreamReadException e) {
-                        e.printStackTrace();
-                    } catch (DatabindException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
+                logger.info("clientID: " + topic);
+                
+                
             }
 
         };
