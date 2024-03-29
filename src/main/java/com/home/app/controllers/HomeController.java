@@ -58,8 +58,6 @@ public class HomeController {
     @Autowired
     static DialogFlowIntentResponse response;
 
-  
-
     private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 
     @RequestMapping("/resume")

@@ -24,19 +24,9 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.home.app.AppApplication;
-import com.home.app.model.Light;
-import com.home.app.model.Lights;
+
 
 @Configuration
 public class MqttBeans {

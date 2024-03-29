@@ -1,4 +1,5 @@
 package com.home.app;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ public class AppApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+				registry.addMapping("/**").allowedOrigins("*");
 			}
 		};
 	}

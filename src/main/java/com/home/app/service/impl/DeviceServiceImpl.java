@@ -43,7 +43,7 @@ public class DeviceServiceImpl {
         Lights emp = new Lights();
         try {
             // read json file data to String
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Lights.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Lights.json"));
 
             // create ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -78,7 +78,7 @@ public class DeviceServiceImpl {
 
         try {
             // read json file data to String
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Lights.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Lights.json"));
 
             // create ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -112,14 +112,14 @@ public class DeviceServiceImpl {
     }
 
     public Light modifyLightValues(Integer DeviceID, String field, String value) {
-        File LightsData = new File("C:/Users/Kleis/Dev/Home-Deck/Lights.json");
+        File LightsData = new File("C:/Users/lucas/Dev/Home-Deck/Lights.json");
 
         logger.info("Modificando el dispositivo: " + DeviceID);
         logger.info("Campo: " + field + " = " + value);
         Lights lights = new Lights();
         Light lght = new Light();
         try {
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Lights.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Lights.json"));
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> myMap = new HashMap<String, String>();
             myMap = objectMapper.readValue(jsonData, HashMap.class);
@@ -174,7 +174,7 @@ public class DeviceServiceImpl {
     }
 
     public Light createLightDevice(Integer DeviceID, String RoomID, String Name, String Type, Boolean State) {
-        File LightsData = new File("C:/Users/Kleis/Dev/Home-Deck/Lights.json");
+        File LightsData = new File("C:/Users/lucas/Dev/Home-Deck/Lights.json");
 
         Lights lights = new Lights();
         Light lght = new Light();
@@ -182,7 +182,7 @@ public class DeviceServiceImpl {
         System.out.println("Creando Light Device");
 
         try {
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Lights.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Lights.json"));
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> myMap = new HashMap<String, String>();
             myMap = objectMapper.readValue(jsonData, HashMap.class);
@@ -214,7 +214,7 @@ public class DeviceServiceImpl {
         Opens opensData = new Opens();
         try {
             // read json file data to String
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Opens.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Opens.json"));
 
             // create ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -249,7 +249,7 @@ public class DeviceServiceImpl {
 
         try {
             // read json file data to String
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Opens.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Opens.json"));
 
             // create ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -283,14 +283,14 @@ public class DeviceServiceImpl {
     }
 
     public Open modifyOpenDevice(Integer DeviceID, String field, String value) {
-        File LightsData = new File("C:/Users/Kleis/Dev/Home-Deck/Opens.json");
+        File LightsData = new File("C:/Users/lucas/Dev/Home-Deck/Opens.json");
 
         logger.info("Modificando el dispositivo: " + DeviceID);
         logger.info("Campo: " + field + " = " + value);
         Opens opens = new Opens();
         Open open = new Open();
         try {
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Opens.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Opens.json"));
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> myMap = new HashMap<String, String>();
             myMap = objectMapper.readValue(jsonData, HashMap.class);
@@ -347,7 +347,7 @@ public class DeviceServiceImpl {
 
         try {
             // read json file data to String
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Layout.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Layout.json"));
 
             // create ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -381,14 +381,14 @@ public class DeviceServiceImpl {
     }
 
     public LayoutElement setRoomLayout(String RoomID, String layout) {
-        File LayoutData = new File("C:/Users/Kleis/Dev/Home-Deck/Layout.json");
+        File LayoutData = new File("C:/Users/lucas/Dev/Home-Deck/Layout.json");
 
         Layout layoutAux = new Layout();
         LayoutElement layoutElement = new LayoutElement();
 
         System.out.println(layout);
         try {
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Layout.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Layout.json"));
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> myMap = new HashMap<String, String>();
             myMap = objectMapper.readValue(jsonData, HashMap.class);
@@ -419,12 +419,12 @@ public class DeviceServiceImpl {
     }
 
     public LayoutElement setRoomLayoutState(String RoomID, String state) {
-        File LayoutData = new File("C:/Users/Kleis/Dev/Home-Deck/Layout.json");
+        File LayoutData = new File("C:/Users/lucas/Dev/Home-Deck/Layout.json");
 
         Layout layoutAux = new Layout();
         LayoutElement layoutElement = new LayoutElement();
         try {
-            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/Kleis/Dev/Home-Deck/Layout.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("C:/Users/lucas/Dev/Home-Deck/Layout.json"));
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> myMap = new HashMap<String, String>();
             myMap = objectMapper.readValue(jsonData, HashMap.class);

@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 @Service
 public class JwtUtilService {
 
-    private String password;
 
     @Value("${jwtSecurity.JWT_SECRET_KEY}")
     private String JWT_SECRET_KEY;

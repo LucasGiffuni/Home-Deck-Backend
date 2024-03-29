@@ -47,12 +47,28 @@ public class SpotifyController {
 
         return spotifyActions.pausePlayer();
     }
+
     @PostMapping(value = "/spotify/resumePlayer")
     public ResponseEntity<?> resumePlayer() {
 
         SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
 
         return spotifyActions.resumePlayer();
+    }
+
+    @PostMapping(value = "/spotify/skipNextSong")
+    public ResponseEntity<?> skipNextSong() {
+
+        SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
+
+        return spotifyActions.skipNextSong();
+    }
+    @PostMapping(value = "/spotify/skipPreviousSong")
+    public ResponseEntity<?> skipPreviousSong() {
+
+        SpotifyActions spotifyActions = new SpotifyActions(ACCESS_TOKEN, CODE, STATE);
+
+        return spotifyActions.skipPreviousSong();
     }
 
     @GetMapping(value = "/spotify/getPlayerInformation")
@@ -70,7 +86,6 @@ public class SpotifyController {
 
         return spotifyActions.setPlayerVolume(volume);
     }
-
 
     @GetMapping(value = "/spotify/getUserPlaylists")
     public ResponseEntity<?> getUserAlbums() {

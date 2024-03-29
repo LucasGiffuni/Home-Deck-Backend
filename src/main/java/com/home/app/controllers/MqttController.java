@@ -14,29 +14,25 @@ import com.home.app.configurations.MqttGateway;
 
 @RestController
 public class MqttController {
-    
-      private static final Logger logger =
-      LoggerFactory.getLogger(AppApplication.class);
+
+      private static final Logger logger = LoggerFactory.getLogger(AppApplication.class);
 
       @Autowired
       MqttGateway gateway;
-      
+
       @CrossOrigin(origins = "http://localhost:3000")
-      
+
       @PostMapping("/public/lights/nose")
-      public ResponseEntity<?> modifyLightDevice(
-      
-      @RequestParam String message,
-      
-      @RequestParam String topic) {
-      try {
-      
-      gateway.senToMqtt(message, topic);
-      return ResponseEntity.ok("Success");
-      } catch (Exception ex) {
-      ex.printStackTrace();
-      return ResponseEntity.ok("fail");
+      public ResponseEntity<?> modifyLightDevice(@RequestParam String message, @RequestParam String topic) {
+            try {
+                  logger.info("message" + message);
+                   logger.info("topic" + topic);
+                  gateway.senToMqtt(message, topic);
+                  return ResponseEntity.ok("Success");
+            } catch (Exception ex) {
+                  ex.printStackTrace();
+                  return ResponseEntity.ok("fail");
+            }
       }
-      }
-     
+
 }

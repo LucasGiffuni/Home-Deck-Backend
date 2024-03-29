@@ -14,6 +14,8 @@ import se.michaelthelin.spotify.requests.data.library.GetCurrentUsersSavedAlbums
 import se.michaelthelin.spotify.requests.data.player.GetInformationAboutUsersCurrentPlaybackRequest;
 import se.michaelthelin.spotify.requests.data.player.PauseUsersPlaybackRequest;
 import se.michaelthelin.spotify.requests.data.player.SetVolumeForUsersPlaybackRequest;
+import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToNextTrackRequest;
+import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToPreviousTrackRequest;
 import se.michaelthelin.spotify.requests.data.player.StartResumeUsersPlaybackRequest;
 import se.michaelthelin.spotify.requests.data.playlists.GetListOfCurrentUsersPlaylistsRequest;
 import se.michaelthelin.spotify.requests.data.users_profile.GetUsersProfileRequest;
@@ -45,6 +47,8 @@ public class SpotifyActions {
     private GetInformationAboutUsersCurrentPlaybackRequest getInformationAboutUsersCurrentPlaybackRequest;
     private SetVolumeForUsersPlaybackRequest setVolumeForUsersPlaybackRequest;
     private GetListOfCurrentUsersPlaylistsRequest getListOfCurrentUsersPlaylistsRequest;
+    private SkipUsersPlaybackToNextTrackRequest nextSong;
+    private SkipUsersPlaybackToPreviousTrackRequest previousSong;
 
     public SpotifyActions(String refreshToken, String code, String state) {
         this.code = code;
@@ -65,6 +69,8 @@ public class SpotifyActions {
         startResumeUsersPlaybackRequest = spotifyApi
                 .startResumeUsersPlayback()
                 .build();
+
+        nextSong = spotifyApi.skipUsersPlaybackToNextTrack().build();
         getInformationAboutUsersCurrentPlaybackRequest = spotifyApi.getInformationAboutUsersCurrentPlayback()
                 .build();
 
@@ -74,6 +80,7 @@ public class SpotifyActions {
                 // .offset(0)
                 .build();
 
+        previousSong = spotifyApi.skipUsersPlaybackToPreviousTrack().build();
     }
 
     public ResponseEntity<?> ObtainMe() {
@@ -115,6 +122,40 @@ public class SpotifyActions {
     public ResponseEntity<?> resumePlayer() {
         try {
             startResumeUsersPlaybackRequest.execute();
+
+            return new ResponseEntity<String>("Player resumed.", null, HttpStatus.OK);
+
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (ExpiredJwtException expired) {
+            logger.info("Security exception: " + expired.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Token Expired");
+        }
+
+        return new ResponseEntity<String>("Error", null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public ResponseEntity<?> skipNextSong() {
+        try {
+            nextSong.execute();
+
+            return new ResponseEntity<String>("Player resumed.", null, HttpStatus.OK);
+
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (ExpiredJwtException expired) {
+            logger.info("Security exception: " + expired.getMessage());
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Token Expired");
+        }
+
+        return new ResponseEntity<String>("Error", null, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public ResponseEntity<?> skipPreviousSong() {
+        try {
+            previousSong.execute();
 
             return new ResponseEntity<String>("Player resumed.", null, HttpStatus.OK);
 
@@ -174,9 +215,6 @@ public class SpotifyActions {
 
             System.out.println("Total: " + playlistSimplifiedPaging.getTotal());
             System.out.println("URL: " + playlistSimplifiedPaging.getHref());
-
-
-            
 
             return new ResponseEntity<String>(playlistSimplifiedPaging.getItems().toString(), null, HttpStatus.OK);
 
